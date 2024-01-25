@@ -26,7 +26,7 @@ This script is designed to extract saved logins, cookies, and browser data from 
 - Browser history and bookmarks extraction code adapted from [I-Am-Jakoby's browserData.ps1 script](https://github.com/I-Am-Jakoby/Flipper-Zero-BadUSB/blob/main/Payloads/Flip-BrowserData/browserData.ps1).
 
 ## Version
-1.0
+2.0
 
 ## Author
 Created By: 0D1NSS0N
