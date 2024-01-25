@@ -1,4 +1,4 @@
-# C00k13 M0nst3r
+# C00k13_M0nSt3r
 
 ## Overview
 This script is designed to extract saved logins, cookies, and browser data from Google Chrome, Microsoft Edge, Mozilla Firefox, and Opera browsers. The extracted data is then uploaded to Dropbox in a new folder named "Loot," followed by a subfolder named after the username associated with the data.
